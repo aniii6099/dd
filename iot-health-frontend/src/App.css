@@ -1,0 +1,320 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* ── Base & Reset ──────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg-deep:    #0d0d1a;
+  --bg-card:    #141428;
+  --bg-card-2:  #1a1a35;
+  --border:     #2a2a4a;
+  --text-main:  #e2e8f0;
+  --text-muted: #718096;
+  --accent:     #7c3aed;
+  --accent-2:   #4f46e5;
+  --green:      #48bb78;
+  --red:        #f56565;
+  --orange:     #f6ad55;
+  --blue:       #63b3ed;
+  --radius:     16px;
+  --shadow:     0 8px 32px rgba(0,0,0,0.5);
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg-deep);
+  color: var(--text-main);
+  min-height: 100vh;
+}
+
+/* ── App Shell ─────────────────────────────────────────────────────────────── */
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-height: 100vh;
+}
+
+/* ── Header ────────────────────────────────────────────────────────────────── */
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, #141428 0%, #1e1b4b 100%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 28px;
+  box-shadow: var(--shadow);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-icon { font-size: 2.4rem; }
+
+.header-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #a78bfa, #60a5fa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.header-subtitle {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ── WS Badge ──────────────────────────────────────────────────────────────── */
+.ws-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid;
+  letter-spacing: 0.5px;
+}
+
+.ws-badge--online  { color: var(--green); border-color: var(--green); background: rgba(72,187,120,0.08); }
+.ws-badge--offline { color: var(--red);   border-color: var(--red);   background: rgba(245,101,101,0.08); }
+
+.ws-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(1.3); }
+}
+
+/* ── Alert Banner ──────────────────────────────────────────────────────────── */
+.alert-banner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: linear-gradient(135deg, rgba(245,101,101,0.15), rgba(254,178,178,0.05));
+  border: 1.5px solid var(--red);
+  border-radius: var(--radius);
+  padding: 16px 24px;
+  animation: slideIn 0.4s ease, borderBlink 1s ease-in-out infinite alternate;
+  box-shadow: 0 0 30px rgba(245,101,101,0.2);
+}
+
+.warning-banner {
+  background: linear-gradient(135deg, rgba(246,173,85,0.15), rgba(251,211,141,0.05));
+  border-color: var(--orange);
+  box-shadow: 0 0 20px rgba(246,173,85,0.15);
+  animation: slideIn 0.4s ease; /* No aggressive blink for warning */
+}
+
+.warning-banner .alert-banner__text {
+  color: #fbd38d;
+}
+
+.alert-banner__icon { font-size: 1.8rem; }
+
+.alert-banner__text {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #feb2b2;
+  letter-spacing: 1px;
+  flex: 1;
+}
+
+.alert-banner__pulse {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--red);
+  box-shadow: 0 0 12px var(--red);
+  animation: pulse 0.8s infinite;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes borderBlink {
+  from { border-color: var(--red); }
+  to   { border-color: #fc8181; }
+}
+
+/* ── Metric Cards Grid ─────────────────────────────────────────────────────── */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+/* ── Metric Card ───────────────────────────────────────────────────────────── */
+.metric-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.metric-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  border-radius: var(--radius) var(--radius) 0 0;
+  transition: background 0.3s;
+}
+
+.metric-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+}
+
+.metric-card--alert {
+  border-color: var(--red);
+  background: linear-gradient(135deg, #1a1a35, rgba(245,101,101,0.05));
+  box-shadow: 0 0 24px rgba(245,101,101,0.15);
+}
+
+.metric-card--alert::before {
+  background: linear-gradient(90deg, var(--red), #fc8181);
+}
+
+.metric-icon { font-size: 2rem; }
+
+.metric-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.metric-value {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
+  background: linear-gradient(135deg, #e2e8f0, #a0aec0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transition: all 0.3s ease-out; /* Smooth UI update requirement */
+}
+
+.metric-card--alert .metric-value {
+  background: linear-gradient(135deg, #feb2b2, #fc8181);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.metric-unit {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.metric-status-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  margin-top: 4px;
+}
+
+.dot-green { background: var(--green); box-shadow: 0 0 8px var(--green); }
+.dot-red   { background: var(--red);   box-shadow: 0 0 8px var(--red); animation: pulse 1s infinite; }
+
+/* ── Status Strip ──────────────────────────────────────────────────────────── */
+.status-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: var(--radius);
+  padding: 14px 24px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border: 1px solid;
+}
+
+.status-strip--normal {
+  background: rgba(72,187,120,0.08);
+  border-color: var(--green);
+  color: var(--green);
+}
+
+.status-strip--warning {
+  background: rgba(246,173,85,0.08);
+  border-color: var(--orange);
+  color: #fbd38d;
+}
+
+.status-strip--alert {
+  background: rgba(245,101,101,0.08);
+  border-color: var(--red);
+  color: #feb2b2;
+}
+
+.status-time {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+/* ── Chart Container ───────────────────────────────────────────────────────── */
+.chart-container {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: var(--shadow);
+}
+
+.chart-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+}
+
+/* ── Footer ────────────────────────────────────────────────────────────────── */
+.app-footer {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  padding: 12px;
+  border-top: 1px solid var(--border);
+  margin-top: auto;
+  letter-spacing: 0.5px;
+}
+
+/* ── Responsive ────────────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .app-header { flex-direction: column; gap: 14px; text-align: center; }
+  .header-left { flex-direction: column; }
+  .metrics-grid { grid-template-columns: 1fr 1fr; }
+  .metric-value { font-size: 2.2rem; }
+  .status-strip { flex-direction: column; gap: 6px; }
+}
