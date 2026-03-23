@@ -1,16 +1,38 @@
-# React + Vite
+# IoT Health Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend application for the IoT Health project, built with [React](https://react.dev/) and [Vite](https://vitejs.dev/). It provides a user interface to display health and sensor data, utilizing libraries like Recharts for data visualization.
 
-Currently, two official plugins are available:
+## Prerequisites
+- [Node.js](https://nodejs.org/) (v16 or higher recommended)
+- npm (comes with Node.js)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Setup & Installation
 
-## React Compiler
+1. Navigate to the frontend directory:
+   ```bash
+   cd iot-health-frontend
+   ```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+2. Install the necessary dependencies:
+   ```bash
+   npm install
+   ```
 
-## Expanding the ESLint configuration
+## Running the Application
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+To start the development server:
+```bash
+npm run dev
+```
+By default, the Vite development server will be available at `http://localhost:5173`.
+
+## Building for Production
+
+To build the project for production:
+```bash
+npm run build
+```
+This will generate production-ready static files in the `dist` directory. You can preview the production build using:
+```bash
+npm run preview
+```
